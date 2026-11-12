@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { FolderKanban, Plus } from '@lucide/vue';
 import EmptyState from '@/components/tracker/EmptyState.vue';
 import NoteCard from '@/components/tracker/NoteCard.vue';
 import TrackerScreen from '@/components/tracker/TrackerScreen.vue';
@@ -61,9 +62,10 @@ const notesWithTargets = computed(() => {
             <div class="flex flex-wrap items-center justify-between gap-2">
                 <div>
                     <span
-                        class="inline-flex items-center rounded-full bg-white/15 px-3 py-1 text-xs font-semibold"
+                        class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold"
                     >
-                        🗂 Jurnal Lintas Target
+                        <FolderKanban class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Jurnal Lintas Target</span>
                     </span>
                     <h1 class="mt-2 text-2xl font-bold sm:text-3xl">
                         Riwayat Seluruh Catatan Progress
@@ -76,10 +78,11 @@ const notesWithTargets = computed(() => {
 
                 <button
                     type="button"
-                    class="rounded-full bg-[#F8DF75] px-4 py-2.5 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95 sm:text-sm"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-4 py-2.5 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95 sm:text-sm"
                     @click="emit('addProgress')"
                 >
-                    + Tambah Progress
+                    <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                    <span>Tambah Progress</span>
                 </button>
             </div>
 

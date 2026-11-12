@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { Database, Plus, Search } from '@lucide/vue';
 import EmptyState from '@/components/tracker/EmptyState.vue';
 import PeriodTabs from '@/components/tracker/PeriodTabs.vue';
 import SummaryCard from '@/components/tracker/SummaryCard.vue';
@@ -88,7 +89,8 @@ function resetFilters(): void {
                     <span
                         class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-[#F1EFF8]"
                     >
-                        🗄 Terhubung ke Database MySQL
+                        <Database class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Terhubung ke Database MySQL</span>
                     </span>
                     <h1
                         class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl"
@@ -107,14 +109,16 @@ function resetFilters(): void {
                         class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2.5 text-xs font-semibold text-white backdrop-blur hover:bg-white/25 sm:text-sm"
                         @click="emit('createTarget')"
                     >
-                        + Buat Target
+                        <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                        <span>Buat Target</span>
                     </button>
                     <button
                         type="button"
                         class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-4 py-2.5 text-xs font-bold text-[#211D37] shadow-sm hover:brightness-95 sm:text-sm"
                         @click="emit('addProgress')"
                     >
-                        + Tambah Progress
+                        <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                        <span>Tambah Progress</span>
                     </button>
                 </div>
             </div>
@@ -128,7 +132,7 @@ function resetFilters(): void {
                         class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-white/75"
                         aria-hidden="true"
                     >
-                        🔍
+                        <Search class="h-4 w-4" aria-hidden="true" />
                     </span>
                     <input
                         id="search-target-input"
@@ -182,10 +186,11 @@ function resetFilters(): void {
                 </button>
                 <button
                     type="button"
-                    class="rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-bold text-[#211D37] shadow-xs hover:brightness-95"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-bold text-[#211D37] shadow-xs hover:brightness-95"
                     @click="emit('createTarget')"
                 >
-                    + Buat Target Baru
+                    <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                    <span>Buat Target Baru</span>
                 </button>
             </EmptyState>
 

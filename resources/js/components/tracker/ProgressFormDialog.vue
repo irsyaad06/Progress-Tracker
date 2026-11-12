@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import {
+    AlertCircle,
+    AlertTriangle,
+    Camera,
+    Check,
+    CheckCircle2,
+    Plus,
+    Trash2,
+    X,
+} from '@lucide/vue';
 import { closeDialogSafely } from '@/lib/dialogHelpers';
 import { generateId, getLocalTodayYMD } from '@/lib/progressTracker';
 import type {
@@ -298,10 +308,11 @@ defineExpose({ openCreate, openEdit, close });
             </h2>
             <button
                 type="button"
-                class="rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#29294E] shadow-2xs hover:bg-[#FAF9FE]"
+                class="inline-flex items-center gap-1 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#29294E] shadow-2xs hover:bg-[#FAF9FE]"
                 @click="close"
             >
-                ✕ Batal
+                <X class="h-4 w-4" aria-hidden="true" />
+                <span>Batal</span>
             </button>
         </div>
 
@@ -346,9 +357,13 @@ defineExpose({ openCreate, openEdit, close });
                     />
                     <p
                         v-if="errors.date"
-                        class="mt-1 text-xs font-bold text-rose-700"
+                        class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                     >
-                        ⚠ {{ errors.date }}
+                        <AlertCircle
+                            class="h-3.5 w-3.5 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ errors.date }}</span>
                     </p>
                 </div>
             </div>
@@ -389,9 +404,13 @@ defineExpose({ openCreate, openEdit, close });
                     </div>
                     <p
                         v-if="errors.addedValue"
-                        class="mt-1.5 text-xs font-bold text-rose-700"
+                        class="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                     >
-                        ⚠ {{ errors.addedValue }}
+                        <AlertCircle
+                            class="h-3.5 w-3.5 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ errors.addedValue }}</span>
                     </p>
                 </template>
 
@@ -425,9 +444,13 @@ defineExpose({ openCreate, openEdit, close });
                             </div>
                             <span
                                 v-if="stepsCompletedInOtherNotes.has(step.id)"
-                                class="shrink-0 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-900"
+                                class="inline-flex shrink-0 items-center gap-1 rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-900"
                             >
-                                ✓ Sudah di catatan lain
+                                <Check
+                                    class="h-3 w-3 stroke-[3]"
+                                    aria-hidden="true"
+                                />
+                                <span>Sudah di catatan lain</span>
                             </span>
                         </label>
                     </div>
@@ -453,9 +476,13 @@ defineExpose({ openCreate, openEdit, close });
                     />
                     <p
                         v-if="errors.workResult"
-                        class="mt-1 text-xs font-bold text-rose-700"
+                        class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                     >
-                        ⚠ {{ errors.workResult }}
+                        <AlertCircle
+                            class="h-3.5 w-3.5 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ errors.workResult }}</span>
                     </p>
                 </div>
 
@@ -493,7 +520,7 @@ defineExpose({ openCreate, openEdit, close });
                         </button>
                         <button
                             type="button"
-                            class="rounded-full px-3 py-1 font-bold transition"
+                            class="inline-flex items-center gap-1 rounded-full px-3 py-1 font-bold transition"
                             :class="
                                 form.obstacleAction === 'mark'
                                     ? 'bg-amber-600 text-white'
@@ -501,11 +528,15 @@ defineExpose({ openCreate, openEdit, close });
                             "
                             @click="form.obstacleAction = 'mark'"
                         >
-                            ⚠ Tandai Terkendala
+                            <AlertTriangle
+                                class="h-3.5 w-3.5"
+                                aria-hidden="true"
+                            />
+                            <span>Tandai Terkendala</span>
                         </button>
                         <button
                             type="button"
-                            class="rounded-full px-3 py-1 font-bold transition"
+                            class="inline-flex items-center gap-1 rounded-full px-3 py-1 font-bold transition"
                             :class="
                                 form.obstacleAction === 'resolve'
                                     ? 'bg-emerald-600 text-white'
@@ -513,7 +544,11 @@ defineExpose({ openCreate, openEdit, close });
                             "
                             @click="form.obstacleAction = 'resolve'"
                         >
-                            ✓ Kendala Teratasi
+                            <CheckCircle2
+                                class="h-3.5 w-3.5"
+                                aria-hidden="true"
+                            />
+                            <span>Kendala Teratasi</span>
                         </button>
                     </div>
                 </div>
@@ -541,9 +576,13 @@ defineExpose({ openCreate, openEdit, close });
                     <div>
                         <label
                             for="progress-photos-input"
-                            class="block text-xs font-bold text-[#29294E]"
+                            class="inline-flex items-center gap-1.5 text-xs font-bold text-[#29294E]"
                         >
-                            📷 Foto Bukti (Bisa beberapa foto)
+                            <Camera
+                                class="h-4 w-4 text-[#494B97]"
+                                aria-hidden="true"
+                            />
+                            <span>Foto Bukti (Bisa beberapa foto)</span>
                         </label>
                         <p class="text-[11px] text-[#211D37]/70">
                             Foto bukti disimpan ke penyimpanan server MySQL
@@ -553,9 +592,13 @@ defineExpose({ openCreate, openEdit, close });
 
                     <label
                         for="progress-photos-input"
-                        class="cursor-pointer rounded-full bg-[#F8DF75] px-3.5 py-2 text-xs font-extrabold text-[#211D37] shadow-2xs hover:brightness-95"
+                        class="inline-flex cursor-pointer items-center gap-1 rounded-full bg-[#F8DF75] px-3.5 py-2 text-xs font-extrabold text-[#211D37] shadow-2xs hover:brightness-95"
                     >
-                        + Pilih Foto
+                        <Plus
+                            class="h-3.5 w-3.5 stroke-[2.5]"
+                            aria-hidden="true"
+                        />
+                        <span>Pilih Foto</span>
                     </label>
                     <input
                         id="progress-photos-input"
@@ -587,10 +630,11 @@ defineExpose({ openCreate, openEdit, close });
                             />
                             <button
                                 type="button"
-                                class="absolute top-2 right-2 rounded-full bg-rose-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-rose-700"
+                                class="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-rose-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm hover:bg-rose-700"
                                 @click="removeDraftPhoto(idx)"
                             >
-                                ✕ Hapus Foto
+                                <Trash2 class="h-3 w-3" aria-hidden="true" />
+                                <span>Hapus Foto</span>
                             </button>
                         </div>
                         <div class="mt-2">

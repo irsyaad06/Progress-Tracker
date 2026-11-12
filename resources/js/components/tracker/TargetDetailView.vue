@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import {
+    AlertTriangle,
+    ArrowLeft,
+    ArrowRight,
+    Check,
+    CheckCircle2,
+    Pencil,
+    Plus,
+    Trash2,
+} from '@lucide/vue';
 import EmptyState from '@/components/tracker/EmptyState.vue';
 import NoteCard from '@/components/tracker/NoteCard.vue';
 import OverdueBadge from '@/components/tracker/OverdueBadge.vue';
@@ -44,23 +54,26 @@ const emit = defineEmits<{
                     class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-2 text-xs font-bold text-white hover:bg-white/25 sm:text-sm"
                     @click="emit('back')"
                 >
-                    ← Kembali ke Beranda
+                    <ArrowLeft class="h-4 w-4" aria-hidden="true" />
+                    <span>Kembali ke Beranda</span>
                 </button>
 
                 <div class="flex flex-wrap items-center gap-2">
                     <button
                         type="button"
-                        class="rounded-full bg-white/15 px-3.5 py-2 text-xs font-semibold text-white hover:bg-white/25"
+                        class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3.5 py-2 text-xs font-semibold text-white hover:bg-white/25"
                         @click="emit('editTarget', target)"
                     >
-                        ✎ Edit Target
+                        <Pencil class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Edit Target</span>
                     </button>
                     <button
                         type="button"
-                        class="rounded-full bg-rose-500/80 px-3.5 py-2 text-xs font-semibold text-white hover:bg-rose-600"
+                        class="inline-flex items-center gap-1.5 rounded-full bg-rose-500/80 px-3.5 py-2 text-xs font-semibold text-white hover:bg-rose-600"
                         @click="emit('deleteTarget', target)"
                     >
-                        🗑 Hapus Target
+                        <Trash2 class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Hapus Target</span>
                     </button>
                 </div>
             </div>
@@ -118,18 +131,26 @@ const emit = defineEmits<{
                             target.hasActiveObstacle
                         "
                         type="button"
-                        class="rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-900 hover:bg-emerald-100"
+                        class="inline-flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 px-3.5 py-1.5 text-xs font-bold text-emerald-900 hover:bg-emerald-100"
                         @click="emit('toggleObstacle', target, false)"
                     >
-                        ✓ Tandai Kendala Teratasi
+                        <CheckCircle2
+                            class="h-3.5 w-3.5 text-emerald-700"
+                            aria-hidden="true"
+                        />
+                        <span>Tandai Kendala Teratasi</span>
                     </button>
                     <button
                         v-else-if="metrics.status !== 'Selesai'"
                         type="button"
-                        class="rounded-full border border-amber-300 bg-amber-50 px-3.5 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100"
+                        class="inline-flex items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50 px-3.5 py-1.5 text-xs font-semibold text-amber-900 hover:bg-amber-100"
                         @click="emit('toggleObstacle', target, true)"
                     >
-                        ⚠ Tandai Sedang Terkendala
+                        <AlertTriangle
+                            class="h-3.5 w-3.5 text-amber-600"
+                            aria-hidden="true"
+                        />
+                        <span>Tandai Sedang Terkendala</span>
                     </button>
 
                     <button
@@ -137,7 +158,8 @@ const emit = defineEmits<{
                         class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95 sm:text-sm"
                         @click="emit('addProgress', target.id)"
                     >
-                        + Tambah Progress
+                        <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                        <span>Tambah Progress</span>
                     </button>
                 </div>
             </div>
@@ -176,11 +198,12 @@ const emit = defineEmits<{
                                         : 'bg-[#F1EFF8] text-[#494B97]'
                                 "
                             >
-                                {{
-                                    metrics.completedStepIds.has(step.id)
-                                        ? '✓'
-                                        : idx + 1
-                                }}
+                                <Check
+                                    v-if="metrics.completedStepIds.has(step.id)"
+                                    class="h-3.5 w-3.5 stroke-[3]"
+                                    aria-hidden="true"
+                                />
+                                <span v-else>{{ idx + 1 }}</span>
                             </span>
                             <span
                                 class="font-medium break-words"
@@ -221,8 +244,14 @@ const emit = defineEmits<{
                     "
                 >
                     <div class="flex items-center justify-between gap-2">
-                        <span class="text-xs font-bold">
-                            ⚠ Kendala Terakhir
+                        <span
+                            class="inline-flex items-center gap-1.5 text-xs font-bold"
+                        >
+                            <AlertTriangle
+                                class="h-3.5 w-3.5 text-amber-600"
+                                aria-hidden="true"
+                            />
+                            <span>Kendala Terakhir</span>
                         </span>
                         <span
                             v-if="metrics.lastObstacle"
@@ -249,8 +278,14 @@ const emit = defineEmits<{
                 <div
                     class="rounded-2xl border border-[#D9D2F0] bg-[#F1EFF8] p-3.5 text-[#211D37]"
                 >
-                    <div class="text-xs font-bold text-[#29294E]">
-                        ➔ Langkah Berikutnya
+                    <div
+                        class="flex items-center gap-1.5 text-xs font-bold text-[#29294E]"
+                    >
+                        <ArrowRight
+                            class="h-3.5 w-3.5 text-[#494B97]"
+                            aria-hidden="true"
+                        />
+                        <span>Langkah Berikutnya</span>
                     </div>
                     <p class="mt-1.5 text-xs leading-relaxed">
                         {{ metrics.nextStepText }}
@@ -272,10 +307,11 @@ const emit = defineEmits<{
                 </div>
                 <button
                     type="button"
-                    class="rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
                     @click="emit('addProgress', target.id)"
                 >
-                    + Catat Progress Baru
+                    <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                    <span>Catat Progress Baru</span>
                 </button>
             </div>
 
@@ -286,10 +322,11 @@ const emit = defineEmits<{
             >
                 <button
                     type="button"
-                    class="rounded-full bg-[#F8DF75] px-5 py-2.5 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#F8DF75] px-5 py-2.5 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
                     @click="emit('addProgress', target.id)"
                 >
-                    + Tambah Catatan Pertama
+                    <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                    <span>Tambah Catatan Pertama</span>
                 </button>
             </EmptyState>
 

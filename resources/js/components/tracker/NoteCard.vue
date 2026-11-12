@@ -1,4 +1,15 @@
 <script setup lang="ts">
+import {
+    AlertTriangle,
+    ArrowRight,
+    Calendar,
+    Camera,
+    Check,
+    CheckCircle2,
+    Pencil,
+    Target,
+    Trash2,
+} from '@lucide/vue';
 import PhotoGallery from '@/components/tracker/PhotoGallery.vue';
 import { formatIndonesianDate } from '@/lib/progressTracker';
 import type { PhotoRecord, ProgressNote, TargetItem } from '@/types';
@@ -46,18 +57,24 @@ function resolveStepLabel(stepId: string): string {
         >
             <div class="flex flex-wrap items-center gap-2">
                 <span
-                    class="rounded-full bg-[#29294E] px-3 py-1 text-xs font-bold text-white"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#29294E] px-3 py-1 text-xs font-bold text-white"
                 >
-                    📅 {{ formatIndonesianDate(note.date) }}
+                    <Calendar class="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span>{{ formatIndonesianDate(note.date) }}</span>
                 </span>
 
                 <button
                     v-if="showTargetLink"
                     type="button"
-                    class="rounded-full bg-[#F1EFF8] px-3 py-1 text-xs font-bold text-[#494B97] hover:bg-[#E2DDF4]"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-[#F1EFF8] px-3 py-1 text-xs font-bold text-[#494B97] hover:bg-[#E2DDF4]"
                     @click="emit('openTarget', target.id)"
                 >
-                    🎯 {{ target.title }} →
+                    <Target class="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <span>{{ target.title }}</span>
+                    <ArrowRight
+                        class="h-3.5 w-3.5 shrink-0"
+                        aria-hidden="true"
+                    />
                 </button>
 
                 <span
@@ -91,32 +108,39 @@ function resolveStepLabel(stepId: string): string {
 
                 <span
                     v-if="note.markAsObstacle"
-                    class="rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-900"
+                    class="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-[11px] font-bold text-amber-900"
                 >
-                    ⚠ Menandai Kendala
+                    <AlertTriangle
+                        class="h-3 w-3 shrink-0"
+                        aria-hidden="true"
+                    />
+                    <span>Menandai Kendala</span>
                 </span>
                 <span
                     v-else-if="note.resolveObstacle"
-                    class="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-900"
+                    class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-0.5 text-[11px] font-bold text-emerald-900"
                 >
-                    ✓ Menyelesaikan Kendala
+                    <CheckCircle2 class="h-3 w-3 shrink-0" aria-hidden="true" />
+                    <span>Menyelesaikan Kendala</span>
                 </span>
             </div>
 
             <div class="flex items-center gap-1.5">
                 <button
                     type="button"
-                    class="rounded-full bg-[#F1EFF8] px-3 py-1.5 text-xs font-semibold text-[#29294E] hover:bg-[#E2DDF4]"
+                    class="inline-flex items-center gap-1 rounded-full bg-[#F1EFF8] px-3 py-1.5 text-xs font-semibold text-[#29294E] hover:bg-[#E2DDF4]"
                     @click="emit('edit', note)"
                 >
-                    ✎ Edit
+                    <Pencil class="h-3 w-3 shrink-0" aria-hidden="true" />
+                    <span>Edit</span>
                 </button>
                 <button
                     type="button"
-                    class="rounded-full bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100"
+                    class="inline-flex items-center gap-1 rounded-full bg-rose-50 px-3 py-1.5 text-xs font-semibold text-rose-700 hover:bg-rose-100"
                     @click="emit('delete', note)"
                 >
-                    🗑 Hapus
+                    <Trash2 class="h-3 w-3 shrink-0" aria-hidden="true" />
+                    <span>Hapus</span>
                 </button>
             </div>
         </div>
@@ -134,9 +158,12 @@ function resolveStepLabel(stepId: string): string {
                 <li
                     v-for="stepId in note.completedStepIds"
                     :key="stepId"
-                    class="inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-xs font-medium text-[#211D37] shadow-2xs"
+                    class="inline-flex items-center gap-1.5 rounded-full bg-white px-2.5 py-1 text-xs font-medium text-[#211D37] shadow-2xs"
                 >
-                    <span class="font-bold text-emerald-600">✓</span>
+                    <Check
+                        class="h-3 w-3 shrink-0 stroke-[3] text-emerald-600"
+                        aria-hidden="true"
+                    />
                     <span>{{ resolveStepLabel(stepId) }}</span>
                 </li>
             </ul>
@@ -154,7 +181,13 @@ function resolveStepLabel(stepId: string): string {
                 v-if="note.obstacle"
                 class="rounded-xl border border-amber-200 bg-amber-50 p-3 text-amber-950"
             >
-                <span class="font-bold">⚠ Kendala:</span>
+                <span class="inline-flex items-center gap-1 font-bold">
+                    <AlertTriangle
+                        class="h-3.5 w-3.5 shrink-0 text-amber-600"
+                        aria-hidden="true"
+                    />
+                    <span>Kendala:</span>
+                </span>
                 <p class="mt-0.5 leading-relaxed break-words">
                     {{ note.obstacle }}
                 </p>
@@ -164,8 +197,14 @@ function resolveStepLabel(stepId: string): string {
                 v-if="note.nextStep"
                 class="rounded-xl bg-[#F1EFF8] p-3 text-[#211D37]"
             >
-                <span class="font-bold text-[#494B97]">
-                    ➔ Langkah Berikutnya:
+                <span
+                    class="inline-flex items-center gap-1 font-bold text-[#494B97]"
+                >
+                    <ArrowRight
+                        class="h-3.5 w-3.5 shrink-0 text-[#494B97]"
+                        aria-hidden="true"
+                    />
+                    <span>Langkah Berikutnya:</span>
                 </span>
                 <p class="mt-0.5 leading-relaxed break-words">
                     {{ note.nextStep }}
@@ -177,8 +216,14 @@ function resolveStepLabel(stepId: string): string {
             v-if="photos.length > 0"
             class="mt-4 border-t border-[#F1EFF8] pt-3.5"
         >
-            <div class="mb-2 text-xs font-bold text-[#494B97]">
-                📷 Foto Bukti ({{ photos.length }}) — Klik untuk memperbesar
+            <div
+                class="mb-2 flex items-center gap-1.5 text-xs font-bold text-[#494B97]"
+            >
+                <Camera class="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span
+                    >Foto Bukti ({{ photos.length }}) — Klik untuk
+                    memperbesar</span
+                >
             </div>
             <PhotoGallery
                 :photos="photos"

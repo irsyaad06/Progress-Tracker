@@ -1,4 +1,11 @@
 <script setup lang="ts">
+import {
+    AlertTriangle,
+    CheckCircle2,
+    Circle,
+    CircleDot,
+    Clock,
+} from '@lucide/vue';
 import ProgressRing from '@/components/tracker/ProgressRing.vue';
 import type { PeriodFilter, StatusFilter, SummaryStats } from '@/types';
 
@@ -23,23 +30,27 @@ const STATUS_OPTIONS: StatusFilter[] = [
 const COUNT_TILES = [
     {
         key: 'berjalan',
-        label: '● Berjalan',
+        label: 'Berjalan',
         classes: 'bg-[#F1EFF8] text-[#29294E]',
+        icon: CircleDot,
     },
     {
         key: 'terkendala',
-        label: '⚠ Terkendala',
+        label: 'Terkendala',
         classes: 'bg-amber-50 text-amber-900',
+        icon: AlertTriangle,
     },
     {
         key: 'belumMulai',
-        label: '○ Belum Mulai',
+        label: 'Belum Mulai',
         classes: 'bg-slate-100 text-slate-800',
+        icon: Circle,
     },
     {
         key: 'selesai',
-        label: '✓ Selesai',
+        label: 'Selesai',
         classes: 'bg-emerald-50 text-emerald-900',
+        icon: CheckCircle2,
     },
 ] as const;
 </script>
@@ -70,7 +81,11 @@ const COUNT_TILES = [
                         v-if="stats.lewatTenggat > 0"
                         class="mt-2 inline-flex items-center gap-1 rounded-full bg-rose-100 px-2.5 py-0.5 text-xs font-bold text-rose-800"
                     >
-                        ⏰ {{ stats.lewatTenggat }} Lewat Tenggat
+                        <Clock
+                            class="h-3.5 w-3.5 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ stats.lewatTenggat }} Lewat Tenggat</span>
                     </p>
                 </div>
             </div>
@@ -82,7 +97,16 @@ const COUNT_TILES = [
                     class="flex flex-col-reverse rounded-2xl px-3.5 py-2.5 text-center"
                     :class="tile.classes"
                 >
-                    <dt class="text-[11px] font-semibold">{{ tile.label }}</dt>
+                    <dt
+                        class="inline-flex items-center justify-center gap-1 text-[11px] font-semibold"
+                    >
+                        <component
+                            :is="tile.icon"
+                            class="h-3 w-3 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ tile.label }}</span>
+                    </dt>
                     <dd class="text-lg font-extrabold">
                         {{ stats[tile.key] }}
                     </dd>

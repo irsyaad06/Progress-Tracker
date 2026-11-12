@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { ArrowRight, PlusCircle, Target, X } from '@lucide/vue';
 import {
     attachLightDismissFallback,
     closeDialogSafely,
@@ -50,10 +51,11 @@ defineExpose({ open, close });
             </h2>
             <button
                 type="button"
-                class="rounded-full bg-[#F1EFF8] px-3 py-1 text-xs font-bold text-[#29294E]"
+                class="inline-flex items-center gap-1 rounded-full bg-[#F1EFF8] px-3 py-1 text-xs font-bold text-[#29294E] hover:bg-[#E2DDF4]"
                 @click="close"
             >
-                ✕ Tutup
+                <X class="h-4 w-4" aria-hidden="true" />
+                <span>Tutup</span>
             </button>
         </div>
         <p class="mt-1 text-xs text-[#211D37]/75">
@@ -64,17 +66,23 @@ defineExpose({ open, close });
             <button
                 type="button"
                 autofocus
-                class="flex w-full items-center justify-between rounded-2xl bg-[#F8DF75] px-4 py-3.5 text-left font-bold text-[#211D37] shadow-xs hover:brightness-95"
+                class="flex w-full items-center justify-between gap-3 rounded-2xl bg-[#F8DF75] px-4 py-3.5 text-left font-bold text-[#211D37] shadow-xs hover:brightness-95"
                 @click="
                     close();
                     emit('addProgress', activeTarget?.id);
                 "
             >
                 <div>
-                    <div class="text-sm font-extrabold">
-                        + Tambah Catatan Progress
+                    <div
+                        class="flex items-center gap-1.5 text-sm font-extrabold"
+                    >
+                        <PlusCircle
+                            class="h-4 w-4 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>Tambah Catatan Progress</span>
                     </div>
-                    <div class="text-xs font-medium text-[#211D37]/80">
+                    <div class="mt-0.5 text-xs font-medium text-[#211D37]/80">
                         {{
                             activeTarget
                                 ? `Otomatis untuk: ${activeTarget.title}`
@@ -82,27 +90,30 @@ defineExpose({ open, close });
                         }}
                     </div>
                 </div>
-                <span class="text-lg">→</span>
+                <ArrowRight class="h-5 w-5 shrink-0" aria-hidden="true" />
             </button>
 
             <button
                 type="button"
-                class="flex w-full items-center justify-between rounded-2xl bg-[#494B97] px-4 py-3.5 text-left font-bold text-white shadow-xs hover:bg-[#29294E]"
+                class="flex w-full items-center justify-between gap-3 rounded-2xl bg-[#494B97] px-4 py-3.5 text-left font-bold text-white shadow-xs hover:bg-[#29294E]"
                 @click="
                     close();
                     emit('createTarget');
                 "
             >
                 <div>
-                    <div class="text-sm font-extrabold">
-                        🎯 Buat Target Baru
+                    <div
+                        class="flex items-center gap-1.5 text-sm font-extrabold"
+                    >
+                        <Target class="h-4 w-4 shrink-0" aria-hidden="true" />
+                        <span>Buat Target Baru</span>
                     </div>
-                    <div class="text-xs font-normal text-white/85">
+                    <div class="mt-0.5 text-xs font-normal text-white/85">
                         Target Harian, Mingguan, atau Bulanan (Angka /
                         Checklist)
                     </div>
                 </div>
-                <span class="text-lg">→</span>
+                <ArrowRight class="h-5 w-5 shrink-0" aria-hidden="true" />
             </button>
         </div>
     </dialog>

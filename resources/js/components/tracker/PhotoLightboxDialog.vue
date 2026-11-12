@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { ChevronLeft, ChevronRight, X } from '@lucide/vue';
 import {
     attachLightDismissFallback,
     closeDialogSafely,
@@ -70,10 +71,11 @@ defineExpose({ open, close });
                 <button
                     type="button"
                     autofocus
-                    class="rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-white/25"
+                    class="inline-flex items-center gap-1 rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold text-white hover:bg-white/25"
                     @click="close"
                 >
-                    ✕ Tutup
+                    <X class="h-4 w-4" aria-hidden="true" />
+                    <span>Tutup</span>
                 </button>
             </div>
 
@@ -101,17 +103,19 @@ defineExpose({ open, close });
                 <div v-if="photos.length > 1" class="flex items-center gap-2">
                     <button
                         type="button"
-                        class="rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold hover:bg-white/25"
+                        class="inline-flex items-center gap-1 rounded-full bg-white/15 px-3.5 py-1.5 text-xs font-bold hover:bg-white/25"
                         @click="prev"
                     >
-                        ← Sebelumnya
+                        <ChevronLeft class="h-4 w-4" aria-hidden="true" />
+                        <span>Sebelumnya</span>
                     </button>
                     <button
                         type="button"
-                        class="rounded-full bg-[#F8DF75] px-3.5 py-1.5 text-xs font-bold text-[#211D37]"
+                        class="inline-flex items-center gap-1 rounded-full bg-[#F8DF75] px-3.5 py-1.5 text-xs font-bold text-[#211D37]"
                         @click="next"
                     >
-                        Berikutnya →
+                        <span>Berikutnya</span>
+                        <ChevronRight class="h-4 w-4" aria-hidden="true" />
                     </button>
                 </div>
             </div>

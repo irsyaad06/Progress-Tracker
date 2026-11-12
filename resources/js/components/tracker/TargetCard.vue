@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { AlertTriangle, ArrowRight, Plus } from '@lucide/vue';
 import OverdueBadge from '@/components/tracker/OverdueBadge.vue';
 import StatusBadge from '@/components/tracker/StatusBadge.vue';
 import TargetProgressBar from '@/components/tracker/TargetProgressBar.vue';
@@ -73,16 +74,30 @@ const emit = defineEmits<{
             <div class="mt-3.5 space-y-2 text-xs">
                 <p
                     v-if="metrics.hasActiveObstacle && metrics.lastObstacle"
-                    class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-amber-950"
+                    class="flex items-start gap-1.5 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-amber-950"
                 >
-                    <span class="font-bold">⚠ Kendala:</span>
-                    {{ metrics.lastObstacle }}
-                </p>
-                <p class="rounded-xl bg-[#F1EFF8]/70 px-3 py-2 text-[#211D37]">
-                    <span class="font-bold text-[#494B97]">
-                        ➔ Langkah Berikutnya:
+                    <AlertTriangle
+                        class="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600"
+                        aria-hidden="true"
+                    />
+                    <span>
+                        <strong class="font-bold">Kendala:</strong>
+                        {{ metrics.lastObstacle }}
                     </span>
-                    {{ metrics.nextStepText }}
+                </p>
+                <p
+                    class="flex items-start gap-1.5 rounded-xl bg-[#F1EFF8]/70 px-3 py-2 text-[#211D37]"
+                >
+                    <ArrowRight
+                        class="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#494B97]"
+                        aria-hidden="true"
+                    />
+                    <span>
+                        <strong class="font-bold text-[#494B97]">
+                            Langkah Berikutnya:
+                        </strong>
+                        {{ metrics.nextStepText }}
+                    </span>
                 </p>
             </div>
         </div>
@@ -108,10 +123,11 @@ const emit = defineEmits<{
             </div>
             <button
                 type="button"
-                class="rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
+                class="inline-flex items-center gap-1 rounded-full bg-[#F8DF75] px-4 py-2 text-xs font-extrabold text-[#211D37] shadow-xs hover:brightness-95"
                 @click="emit('addProgress', target.id)"
             >
-                + Tambah Progress
+                <Plus class="h-4 w-4 stroke-[2.5]" aria-hidden="true" />
+                <span>Tambah Progress</span>
             </button>
         </div>
     </article>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ClipboardList, Home, Plus } from '@lucide/vue';
 import type { TrackerScreen } from '@/types';
 
 type Props = {
@@ -22,7 +23,7 @@ const emit = defineEmits<{
         <div class="mx-auto flex max-w-md items-center justify-around">
             <button
                 type="button"
-                class="flex flex-col items-center gap-0.5 rounded-2xl px-4 py-1.5 text-xs font-bold transition"
+                class="flex flex-col items-center gap-1 rounded-2xl px-4 py-1.5 text-xs font-bold transition"
                 :class="
                     activeScreen !== 'history'
                         ? 'text-[#494B97]'
@@ -31,22 +32,22 @@ const emit = defineEmits<{
                 :aria-current="activeScreen !== 'history' ? 'page' : undefined"
                 @click="emit('home')"
             >
-                <span class="text-lg leading-none" aria-hidden="true">🏠</span>
+                <Home class="h-5 w-5" aria-hidden="true" />
                 <span>Beranda</span>
             </button>
 
             <button
                 type="button"
                 aria-label="Tambah target atau progress"
-                class="-mt-6 flex h-14 w-14 items-center justify-center rounded-full border-4 border-[#F1EFF8] bg-[#F8DF75] text-2xl font-black text-[#211D37] shadow-md transition hover:scale-105"
+                class="-mt-6 flex h-14 w-14 items-center justify-center rounded-full border-4 border-[#F1EFF8] bg-[#F8DF75] text-[#211D37] shadow-md transition hover:scale-105"
                 @click="emit('add')"
             >
-                +
+                <Plus class="h-7 w-7 stroke-[3]" aria-hidden="true" />
             </button>
 
             <button
                 type="button"
-                class="flex flex-col items-center gap-0.5 rounded-2xl px-4 py-1.5 text-xs font-bold transition"
+                class="flex flex-col items-center gap-1 rounded-2xl px-4 py-1.5 text-xs font-bold transition"
                 :class="
                     activeScreen === 'history'
                         ? 'text-[#494B97]'
@@ -55,7 +56,7 @@ const emit = defineEmits<{
                 :aria-current="activeScreen === 'history' ? 'page' : undefined"
                 @click="emit('history')"
             >
-                <span class="text-lg leading-none" aria-hidden="true">📋</span>
+                <ClipboardList class="h-5 w-5" aria-hidden="true" />
                 <span>Riwayat</span>
             </button>
         </div>

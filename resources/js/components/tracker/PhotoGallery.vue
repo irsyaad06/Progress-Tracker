@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ZoomIn } from '@lucide/vue';
 import type { PhotoRecord } from '@/types';
 
 type Props = {
@@ -43,9 +44,10 @@ const emit = defineEmits<{
                 />
                 <span
                     v-if="!compact"
-                    class="absolute right-2 bottom-2 rounded-full bg-[#29294E]/80 px-2 py-0.5 text-[10px] font-semibold text-white"
+                    class="absolute right-2 bottom-2 inline-flex items-center gap-1 rounded-full bg-[#29294E]/80 px-2 py-0.5 text-[10px] font-semibold text-white backdrop-blur-xs"
                 >
-                    🔍 Perbesar
+                    <ZoomIn class="h-3 w-3 shrink-0" aria-hidden="true" />
+                    <span>Perbesar</span>
                 </span>
             </button>
             <figcaption

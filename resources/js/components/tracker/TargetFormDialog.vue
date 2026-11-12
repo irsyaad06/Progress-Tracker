@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { AlertCircle, Hash, ListChecks, Pin, Plus, X } from '@lucide/vue';
 import { closeDialogSafely } from '@/lib/dialogHelpers';
 import {
     addDaysLocalYMD,
@@ -302,10 +303,11 @@ defineExpose({ openCreate, openEdit, close });
             </h2>
             <button
                 type="button"
-                class="rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#29294E] shadow-2xs hover:bg-[#FAF9FE]"
+                class="inline-flex items-center gap-1 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-[#29294E] shadow-2xs hover:bg-[#FAF9FE]"
                 @click="close"
             >
-                ✕ Batal
+                <X class="h-4 w-4" aria-hidden="true" />
+                <span>Batal</span>
             </button>
         </div>
 
@@ -329,9 +331,13 @@ defineExpose({ openCreate, openEdit, close });
                 />
                 <p
                     v-if="errors.title"
-                    class="mt-1.5 text-xs font-bold text-rose-700"
+                    class="mt-1.5 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                 >
-                    ⚠ {{ errors.title }}
+                    <AlertCircle
+                        class="h-3.5 w-3.5 shrink-0"
+                        aria-hidden="true"
+                    />
+                    <span>{{ errors.title }}</span>
                 </p>
 
                 <label
@@ -389,9 +395,13 @@ defineExpose({ openCreate, openEdit, close });
                         />
                         <p
                             v-if="errors.startDate"
-                            class="mt-1 text-xs font-bold text-rose-700"
+                            class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                         >
-                            ⚠ {{ errors.startDate }}
+                            <AlertCircle
+                                class="h-3.5 w-3.5 shrink-0"
+                                aria-hidden="true"
+                            />
+                            <span>{{ errors.startDate }}</span>
                         </p>
                     </div>
 
@@ -413,9 +423,13 @@ defineExpose({ openCreate, openEdit, close });
                         />
                         <p
                             v-if="errors.dueDate"
-                            class="mt-1 text-xs font-bold text-rose-700"
+                            class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                         >
-                            ⚠ {{ errors.dueDate }}
+                            <AlertCircle
+                                class="h-3.5 w-3.5 shrink-0"
+                                aria-hidden="true"
+                            />
+                            <span>{{ errors.dueDate }}</span>
                         </p>
                     </div>
                 </div>
@@ -430,7 +444,7 @@ defineExpose({ openCreate, openEdit, close });
                 <div class="mt-1.5 grid grid-cols-2 gap-2">
                     <button
                         type="button"
-                        class="rounded-full py-2 text-xs font-bold transition"
+                        class="inline-flex items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition"
                         :class="
                             form.type === 'numeric'
                                 ? 'bg-[#494B97] text-white'
@@ -438,11 +452,12 @@ defineExpose({ openCreate, openEdit, close });
                         "
                         @click="form.type = 'numeric'"
                     >
-                        🔢 Target Angka
+                        <Hash class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Target Angka</span>
                     </button>
                     <button
                         type="button"
-                        class="rounded-full py-2 text-xs font-bold transition"
+                        class="inline-flex items-center justify-center gap-1.5 rounded-full py-2 text-xs font-bold transition"
                         :class="
                             form.type === 'checklist'
                                 ? 'bg-[#494B97] text-white'
@@ -450,7 +465,8 @@ defineExpose({ openCreate, openEdit, close });
                         "
                         @click="form.type = 'checklist'"
                     >
-                        ☑ Checklist Langkah
+                        <ListChecks class="h-3.5 w-3.5" aria-hidden="true" />
+                        <span>Checklist Langkah</span>
                     </button>
                 </div>
 
@@ -479,9 +495,13 @@ defineExpose({ openCreate, openEdit, close });
                         />
                         <p
                             v-if="errors.targetValue"
-                            class="mt-1 text-xs font-bold text-rose-700"
+                            class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                         >
-                            ⚠ {{ errors.targetValue }}
+                            <AlertCircle
+                                class="h-3.5 w-3.5 shrink-0"
+                                aria-hidden="true"
+                            />
+                            <span>{{ errors.targetValue }}</span>
                         </p>
                     </div>
 
@@ -503,9 +523,13 @@ defineExpose({ openCreate, openEdit, close });
                         />
                         <p
                             v-if="errors.unit"
-                            class="mt-1 text-xs font-bold text-rose-700"
+                            class="mt-1 inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                         >
-                            ⚠ {{ errors.unit }}
+                            <AlertCircle
+                                class="h-3.5 w-3.5 shrink-0"
+                                aria-hidden="true"
+                            />
+                            <span>{{ errors.unit }}</span>
                         </p>
                     </div>
                 </div>
@@ -518,10 +542,14 @@ defineExpose({ openCreate, openEdit, close });
                         </span>
                         <button
                             type="button"
-                            class="rounded-full bg-[#F8DF75] px-3 py-1 text-xs font-extrabold text-[#211D37]"
+                            class="inline-flex items-center gap-1 rounded-full bg-[#F8DF75] px-3 py-1 text-xs font-extrabold text-[#211D37]"
                             @click="addStepRow"
                         >
-                            + Tambah Langkah
+                            <Plus
+                                class="h-3.5 w-3.5 stroke-[2.5]"
+                                aria-hidden="true"
+                            />
+                            <span>Tambah Langkah</span>
                         </button>
                     </div>
 
@@ -565,10 +593,18 @@ defineExpose({ openCreate, openEdit, close });
                             "
                             class="mt-1.5 flex flex-wrap items-center justify-between gap-2 pl-8 text-[11px]"
                         >
-                            <span class="font-semibold text-[#494B97]">
-                                📌 Sudah tercatat di
-                                {{ countNotesUsingStep(form.id, step.id) }}
-                                catatan riwayat
+                            <span
+                                class="inline-flex items-center gap-1 font-semibold text-[#494B97]"
+                            >
+                                <Pin
+                                    class="h-3 w-3 shrink-0"
+                                    aria-hidden="true"
+                                />
+                                <span>
+                                    Sudah tercatat di
+                                    {{ countNotesUsingStep(form.id, step.id) }}
+                                    catatan riwayat
+                                </span>
                             </span>
 
                             <span
@@ -583,9 +619,13 @@ defineExpose({ openCreate, openEdit, close });
 
                     <p
                         v-if="errors.steps"
-                        class="text-xs font-bold text-rose-700"
+                        class="inline-flex items-center gap-1 text-xs font-bold text-rose-700"
                     >
-                        ⚠ {{ errors.steps }}
+                        <AlertCircle
+                            class="h-3.5 w-3.5 shrink-0"
+                            aria-hidden="true"
+                        />
+                        <span>{{ errors.steps }}</span>
                     </p>
                 </div>
             </div>
