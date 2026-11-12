@@ -17,7 +17,6 @@ class TrackerController extends Controller
      */
     public function index(Request $request): Response|JsonResponse
     {
-        $this->trackerService->ensureInitialSeed();
         $snapshot = $this->trackerService->getSnapshotPayload();
 
         if ($request->expectsJson() && ! $request->header('X-Inertia')) {

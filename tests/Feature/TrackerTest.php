@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 uses(RefreshDatabase::class);
 
-test('tracker home screen renders successfully with seed data', function () {
+test('tracker home screen renders successfully', function () {
     $response = $this->get(route('home'));
 
     $response->assertOk();
